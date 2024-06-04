@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 20",
+  "_version": "20.1.0",
+
+  "compilerOptions": {
+    "lib": ["es2023"],
+    "module": "node16",
+    "target": "es2022",
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"],
+      "@models/*": ["src/models/*"],
+      "@database": ["src/database"],
+      "@routes/*": ["src/routes/*"],
+      "@middlewares/*": ["src/routes/middlewares/*"]
+    },
+
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node16"
+  }
+}

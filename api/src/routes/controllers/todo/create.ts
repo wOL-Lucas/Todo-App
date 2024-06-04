@@ -10,7 +10,7 @@ const schema = z.object({
   userId: z.number(),
 });
 
-const create: RequestHandler = (req, res) => {
+const create_task: RequestHandler = (req, res) => {
   const { title, description, status, userId } = schema.parse(req.body);
   
   Task.create({ title, description, status, userId })
@@ -18,4 +18,4 @@ const create: RequestHandler = (req, res) => {
     .catch((error) => res.status(500).json({ message: error.message }));
 };
 
-export default create;
+export default create_task;

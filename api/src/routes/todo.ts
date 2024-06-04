@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import create_task from './controllers/todo/create';
-import { get_all_tasks, get_task_by_id }from './controllers/todo/get';
-import update_task from './controllers/todo/update';
-import delete_task from './controllers/todo/delete';
+import create_task from '@controllers/todo/create';
+import { get_all_tasks, get_task_by_id }from '@controllers/todo/get';
+import update_task from '@controllers/todo/update';
+import delete_task from '@controllers/todo/delete';
 
 const router = Router();
 

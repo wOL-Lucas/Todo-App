@@ -19,7 +19,8 @@
       "@models/*": ["src/models/*"],
       "@database": ["src/database"],
       "@routes/*": ["src/routes/*"],
-      "@middlewares/*": ["src/routes/middlewares/*"]
+      "@middlewares/*": ["src/middlewares/*"],
+      "@controllers/*": ["src/controllers/*"]
     },
 
     "strict": true,

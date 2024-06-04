@@ -1,4 +1,4 @@
-import { RequestHandler, response } from 'express';
+import { RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '@models/User';
 import bcrypt from 'bcrypt';

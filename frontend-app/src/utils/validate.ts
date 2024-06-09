@@ -4,7 +4,7 @@ type Error = {
   [key: string]: string;
 };
 
-export const validate = (data: User) => {
+export default (data: User) => {
   
   const errors:Error = {};
 

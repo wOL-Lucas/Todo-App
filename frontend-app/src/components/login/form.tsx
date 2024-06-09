@@ -1,15 +1,25 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { User } from '@types/User';
 import validate from '@utils/validate';
 import doLogin, { LoginStatus } from '@utils/login';
 import { XMarkIcon } from '@heroicons/react/24/solid';
+import useSignIn from 'react-auth-kit/hooks/useSignIn';
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
 
 const form = () => {
   const [formData, setFormData] = useState<User>({ email: '', password: '' });
   const [errors, setErrors] = useState<User | null>(null);
   const [loginStatus, setLoginStatus] = useState<LoginStatus | null>(null);
+  const signIn = useSignIn();
+  const authUser = useAuthUser();
 
-
+  useEffect(() => {
+    if(authUser){
+      window.location.href="/";
+      return; 
+    }
+  }, []);
+ 
   const ErrorLabel = () => {
     return (
       <div className="flex gap-1 items-center justify-center">
@@ -26,22 +36,41 @@ const form = () => {
     });
   };
 
+  type AuthState = {
+    email: string;
+  };
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();  
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
     setErrors(null);
     const errors = validate(formData);
-
+    
     if(Object.keys(errors).length > 0){
       setErrors(errors);
       return;
     }
 
-    doLogin(formData).then((status: LoginStatus) => {
-      setLoginStatus(status);
-    });
+    const authState: AuthState = {
+      email: formData.email!,
+    };
 
-    setFormData({ email: '', password: '' });
+    const status = await doLogin(formData)
+    setLoginStatus(status);
+
+    if (status.success && status.token) {
+      signIn({
+        auth: {
+          token: status.token,
+          type: 'Bearer',
+        },
+        userState: authState,
+      });
+      setFormData({ email: '', password: '' });
+    }
+   
+    window.location.href="/";
+
     setTimeout(() => {
       setLoginStatus(null);
     }, 5000);

@@ -3,6 +3,7 @@ import { User } from '@types/User';
 export type LoginStatus = {
   success: boolean;
   message?: string;
+  token?: string;
 };
 
 type LoginResponse = {
@@ -24,11 +25,11 @@ export const login = async (user: User): Promise<LoginStatus> => {
 
     if (response.ok) {
       
-      const token = await response.json() as LoginResponse;
+      const data = await response.json() as LoginResponse;  
 
-      localStorage.setItem('token', token.token || '');
       status.success = true;
       status.message = 'Login successful';
+      status.token = data.token!;
 
     } else {
       const errorData = await response.json();
